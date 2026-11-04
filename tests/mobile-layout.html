@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Mobile layout probe</title>
+<body
+  data-ready="pending"
+  data-viewport-width="0"
+  data-scroll-width="0"
+  data-nav-right="0"
+  data-hero-right="0"
+  data-actions-right="0"
+  data-basketball-focal-x="0"
+  data-taekwondo-focal-x="0"
+>
+<iframe id="site" title="Mobile website test"></iframe>
+<script>
+  const params = new URLSearchParams(location.search);
+  const width = Number(params.get("width")) || 320;
+  const scene = params.get("scene");
+  const frame = document.querySelector("#site");
+  frame.style.width = `${width}px`;
+  frame.style.height = "800px";
+  frame.src = "../index.html";
+
+  frame.addEventListener("load", () => {
+    const view = frame.contentWindow;
+    const doc = frame.contentDocument;
+    const rect = (selector) => {
+      const bounds = doc.querySelector(selector).getBoundingClientRect();
+      return { left: bounds.left, right: bounds.right, width: bounds.width };
+    };
+    const focalX = (selector, sourceRatio) => {
+      const image = doc.querySelector(selector);
+      const bounds = image.getBoundingClientRect();
+      const scale = Math.max(
+        bounds.width / image.naturalWidth,
+        bounds.height / image.naturalHeight
+      );
+      const renderedWidth = image.naturalWidth * scale;
+      const positionPercent = Number.parseFloat(getComputedStyle(image).objectPosition) / 100;
+      const renderedLeft = bounds.left + (bounds.width - renderedWidth) * positionPercent;
+      return renderedLeft + renderedWidth * sourceRatio;
+    };
+
+    document.body.dataset.ready = "true";
+    document.body.dataset.viewportWidth = String(view.innerWidth);
+    document.body.dataset.scrollWidth = String(doc.documentElement.scrollWidth);
+    document.body.dataset.navRight = String(rect("nav").right);
+    document.body.dataset.heroRight = String(rect("h1").right);
+    document.body.dataset.actionsRight = String(rect(".actions").right);
+    document.body.dataset.basketballFocalX = String(
+      focalX(".basketball-chapter .chapter-media", 0.735)
+    );
+    document.body.dataset.taekwondoFocalX = String(
+      focalX(".taekwondo-chapter .chapter-media", 0.24)
+    );
+    if (scene) {
+      doc.documentElement.style.scrollBehavior = "auto";
+      doc.querySelector(`#${scene}`)?.scrollIntoView({ behavior: "instant" });
+    }
+  });
+</script>
+</body>
