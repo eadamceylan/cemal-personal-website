@@ -1,0 +1,14 @@
+# Local source photos and superseded generated drafts
+assets/cemal.jpeg
+assets/cemal-2.jpeg
+assets/cemal-hero-v2.png
+assets/cemal-basketball-v2.png
+assets/cemal-basketball-wide-v3.png
+assets/cemal-taekwondo-v2.png
+assets/cemal-taekwondo-wide-v3.png
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+.vscode/
+

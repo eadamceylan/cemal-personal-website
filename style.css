@@ -1,0 +1,109 @@
+:root {
+  color-scheme: dark;
+  --bg: #0b1113;
+  --surface: #111c20;
+  --text: #f6faf9;
+  --muted: #b8c6c8;
+  --line: #31464b;
+  --accent: #7beac8;
+  --accent-text: #082019;
+  --header-height: 4.75rem;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
+body { margin: 0; overflow-x: hidden; background: var(--bg); color: var(--text); font: 1rem/1.65 "Segoe UI", system-ui, sans-serif; }
+body, h1, h2, h3, p, dl, dd { margin-block-start: 0; }
+a { color: inherit; text-underline-offset: .3em; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.skip { position: fixed; top: .5rem; left: .5rem; z-index: 100; padding: .55rem .85rem; background: var(--text); color: var(--bg); transform: translateY(-180%); }
+.skip:focus { transform: none; }
+
+.bar { position: fixed; inset: 0 0 auto; z-index: 40; height: var(--header-height); border-bottom: 1px solid #ffffff26; background: #071012e8; }
+.bar-inner, .section, .contact, footer { width: min(92%, 1120px); margin-inline: auto; }
+.bar-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; }
+.brand, nav a { text-decoration: none; }
+.brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; }
+.brand b { display: grid; place-items: center; width: 2.35rem; aspect-ratio: 1; background: var(--accent); color: var(--accent-text); }
+nav { display: flex; flex-wrap: wrap; gap: .4rem clamp(.8rem, 2vw, 1.65rem); }
+nav a { min-height: 2.75rem; display: inline-flex; align-items: center; color: #e1e9e8; font-size: .92rem; font-weight: 600; }
+nav a:hover { color: var(--accent); }
+
+.chapter { position: relative; isolation: isolate; min-height: 100dvh; display: grid; align-items: center; overflow: hidden; }
+.chapter-media { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; }
+.basketball-chapter .chapter-media { object-position: 58% center; }
+.taekwondo-chapter .chapter-media { object-position: 42% center; }
+.chapter::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+.basketball-chapter::before { background: linear-gradient(90deg, #071011f2 0%, #071011d9 31%, #0710115c 57%, transparent 76%); }
+.taekwondo-chapter::before { background: linear-gradient(270deg, #071011f2 0%, #071011dc 31%, #07101157 58%, transparent 76%); }
+.chapter::after { content: ""; position: absolute; inset: auto 0 0; z-index: -1; height: 28%; background: linear-gradient(transparent, #071011c7); pointer-events: none; }
+
+.chapter-content { width: min(92%, 1120px); margin-inline: auto; padding-block: calc(var(--header-height) + 3rem) 4rem; }
+.chapter-content > * { max-width: 37rem; }
+.chapter-content.is-right { display: grid; justify-items: end; text-align: left; }
+.chapter-content.is-right > * { width: min(100%, 34rem); }
+.eyebrow { margin-bottom: .7rem; color: var(--accent); font: 700 .76rem/1.5 ui-monospace, Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; }
+h1, h2, h3 { margin-bottom: 0; letter-spacing: -.055em; line-height: .96; }
+h1 { font-size: clamp(3.6rem, 8vw, 7.4rem); }
+h1 span { color: var(--accent); }
+.chapter h2 { font-size: clamp(3.5rem, 7vw, 6.5rem); }
+.role { margin: 1.35rem 0 .45rem; font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 700; }
+.lead { margin-bottom: 0; color: #e0e9e8; font-size: clamp(1rem, 1.7vw, 1.2rem); max-width: 34rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+.button { min-height: 2.75rem; display: inline-flex; align-items: center; justify-content: center; gap: .65rem; padding: .65rem 1rem; border: 1px solid #d5e1df7d; text-decoration: none; font-weight: 700; transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease; }
+.button:hover { border-color: var(--accent); transform: translateY(-2px); }
+.button:active { transform: translateY(0); }
+.button.primary { border-color: var(--accent); background: var(--accent); color: var(--accent-text); }
+.text-link { display: inline-block; margin-top: 1.35rem; color: var(--accent); font-weight: 700; }
+.chapter-name { position: absolute; left: 4%; bottom: 2.5rem; margin: 0; color: #ffffff70; font-size: clamp(2.8rem, 8vw, 8rem); font-weight: 800; letter-spacing: -.07em; line-height: .8; text-transform: uppercase; }
+.chapter-name.is-right { right: 4%; left: auto; }
+
+.section { padding-block: clamp(4rem, 9vw, 8rem); border-bottom: 1px solid var(--line); }
+.section-heading { display: grid; grid-template-columns: .65fr 1.35fr; gap: 1.5rem; align-items: end; margin-bottom: 2rem; }
+.section h2, .contact h2 { margin: 0; font-size: clamp(2.65rem, 6vw, 5.4rem); }
+.about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem; }
+.about-copy, .quick-facts { border-top: 1px solid var(--line); padding-top: 1.5rem; }
+.about-copy { color: #e0e9e8; font-size: clamp(1.08rem, 2vw, 1.3rem); }
+.about-copy p { max-width: 58ch; }
+.quick-facts { display: grid; gap: 1.1rem; margin: 0; }
+.quick-facts div { display: grid; gap: .15rem; }
+.quick-facts dt { color: var(--accent); font: 700 .72rem/1.5 ui-monospace, Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; }
+.quick-facts dd { margin: 0; }
+
+.interest-list { border-top: 1px solid var(--line); }
+.interest-list article { display: grid; grid-template-columns: .45fr 1fr; gap: 1rem; padding-block: 1.5rem; border-bottom: 1px solid var(--line); }
+.interest-list article > span { color: var(--accent); font: 700 .76rem/1.5 ui-monospace, Consolas, monospace; }
+.interest-list h3 { margin-top: 0; font-size: clamp(1.45rem, 3vw, 2.3rem); }
+.interest-list p { margin-bottom: 0; color: var(--muted); }
+
+.contact { min-height: 55dvh; display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: clamp(4rem, 9vw, 8rem); }
+.contact h2 { margin: 0; }
+footer { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 720px) {
+  :root { --header-height: 6.6rem; }
+  .bar-inner { align-content: center; flex-wrap: wrap; gap: 0 .8rem; padding-block: .55rem; }
+  .brand span { display: none; }
+  nav { flex: 1; justify-content: flex-end; gap: .15rem .75rem; }
+  nav a { min-height: 2.4rem; font-size: .82rem; }
+  .chapter { min-height: 100svh; align-items: end; }
+  .chapter-media { object-position: 62% center; }
+  .taekwondo-chapter .chapter-media { object-position: 28% center; }
+  .basketball-chapter::before, .taekwondo-chapter::before { background: linear-gradient(0deg, #071011f7 0%, #071011d4 45%, #0710112e 80%); }
+  .chapter-content, .chapter-content.is-right { display: block; text-align: left; padding-block: calc(var(--header-height) + 2rem) 5rem; }
+  .chapter-content.is-right > * { width: auto; }
+  h1 { font-size: clamp(3rem, 15vw, 5rem); }
+  .chapter h2 { font-size: clamp(3rem, 14vw, 4.8rem); }
+  .chapter-name { bottom: 1.5rem; font-size: clamp(2.4rem, 15vw, 4.5rem); }
+  .section-heading, .about-grid { grid-template-columns: 1fr; }
+  .section-heading { gap: .35rem; }
+  .interest-list article { grid-template-columns: 3rem 1fr; }
+  .contact { min-height: auto; align-items: flex-start; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .button { transition: none; }
+  .button:hover { transform: none; }
+}
