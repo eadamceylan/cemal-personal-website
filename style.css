@@ -24,8 +24,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .bar-inner, .section, .contact, footer { width: min(92%, 1120px); margin-inline: auto; }
 .bar-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; }
 .brand, nav a { text-decoration: none; }
-.brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; }
-.brand b { display: grid; place-items: center; width: 2.35rem; aspect-ratio: 1; background: var(--accent); color: var(--accent-text); }
+.brand { display: block; flex: 0 0 auto; }
+.brand-logo { display: block; width: 9rem; height: 2.75rem; overflow: hidden; background: var(--text); }
+.brand-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
 nav { display: flex; flex-wrap: wrap; gap: .4rem clamp(.8rem, 2vw, 1.65rem); }
 nav a { min-height: 2.75rem; display: inline-flex; align-items: center; color: #e1e9e8; font-size: .92rem; font-weight: 600; }
 nav a:hover { color: var(--accent); }
@@ -84,7 +85,8 @@ footer { display: flex; justify-content: space-between; gap: 1rem; padding-block
 @media (max-width: 720px) {
   :root { --header-height: 6.6rem; }
   .bar-inner { align-content: center; flex-wrap: wrap; gap: 0 .8rem; padding-block: .55rem; }
-  .brand span { display: none; }
+  .brand-logo { width: 2.75rem; }
+  .brand-logo img { width: 12rem; max-width: none; height: auto; transform: translate(-.5rem, -.6rem); }
   nav { flex: 1; justify-content: flex-end; gap: .15rem .75rem; }
   nav a { min-height: 2.4rem; font-size: .82rem; }
   .chapter { min-height: 100svh; align-items: end; }

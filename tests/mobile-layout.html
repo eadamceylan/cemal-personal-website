@@ -13,6 +13,9 @@
   data-header-bottom="0"
   data-basketball-head-y="0"
   data-taekwondo-head-y="0"
+  data-logo-present="false"
+  data-logo-height="0"
+  data-logo-bottom="0"
 >
 <iframe id="site" title="Mobile website test"></iframe>
 <script>
@@ -61,6 +64,7 @@
       0.24,
       0.11
     );
+    const logo = doc.querySelector(".brand img");
 
     document.body.dataset.ready = "true";
     document.body.dataset.viewportWidth = String(view.innerWidth);
@@ -79,6 +83,12 @@
     document.body.dataset.taekwondoHeadY = String(
       taekwondo.y - doc.querySelector(".taekwondo-chapter").getBoundingClientRect().top
     );
+    if (logo) {
+      const logoBounds = logo.getBoundingClientRect();
+      document.body.dataset.logoPresent = "true";
+      document.body.dataset.logoHeight = String(logoBounds.height);
+      document.body.dataset.logoBottom = String(logoBounds.bottom);
+    }
     if (scene) {
       doc.documentElement.style.scrollBehavior = "auto";
       doc.querySelector(`#${scene}`)?.scrollIntoView({ behavior: "instant" });

@@ -66,6 +66,10 @@ try {
     $html = Get-HeadlessDom $url
 
     $values = @{}
+    $logoMatch = [regex]::Match($html, 'data-logo-present="([^"]+)"')
+    if (-not $logoMatch.Success -or $logoMatch.Groups[1].Value -ne "true") {
+      $failures += "${width}px header logo is missing"
+    }
     foreach ($name in "ready", "viewport-width", "scroll-width", "nav-right", "hero-right", "actions-right", "basketball-focal-x", "taekwondo-focal-x", "header-bottom", "basketball-head-y", "taekwondo-head-y") {
       $match = [regex]::Match($html, "data-$name=`"([^`"]+)`"")
       if (-not $match.Success) {
