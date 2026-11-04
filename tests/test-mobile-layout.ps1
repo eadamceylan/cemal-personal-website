@@ -66,7 +66,7 @@ try {
     $html = Get-HeadlessDom $url
 
     $values = @{}
-    foreach ($name in "ready", "viewport-width", "scroll-width", "nav-right", "hero-right", "actions-right", "basketball-focal-x", "taekwondo-focal-x") {
+    foreach ($name in "ready", "viewport-width", "scroll-width", "nav-right", "hero-right", "actions-right", "basketball-focal-x", "taekwondo-focal-x", "header-bottom", "basketball-head-y", "taekwondo-head-y") {
       $match = [regex]::Match($html, "data-$name=`"([^`"]+)`"")
       if (-not $match.Success) {
         $previewLength = [Math]::Min(600, $html.Length)
@@ -91,6 +91,16 @@ try {
         $focalX = [double]$values["$scene-focal-x"]
         if ($focalX -lt $safeLeft -or $focalX -gt $safeRight) {
           $failures += "${width}px $scene subject is outside the safe frame: focalX=$focalX, safe=$safeLeft..$safeRight"
+        }
+      }
+      $basketballRight = [double]$values["viewport-width"] * 0.62
+      if ([double]$values["basketball-focal-x"] -gt $basketballRight) {
+        $failures += "${width}px basketball subject is too far right: focalX=$($values['basketball-focal-x']), max=$basketballRight"
+      }
+      $minimumHeadY = [double]$values["header-bottom"] + 8
+      foreach ($scene in "basketball", "taekwondo") {
+        if ([double]$values["$scene-head-y"] -lt $minimumHeadY) {
+          $failures += "${width}px $scene head is hidden by the header: headY=$($values["$scene-head-y"]), minimum=$minimumHeadY"
         }
       }
     }

@@ -10,6 +10,9 @@
   data-actions-right="0"
   data-basketball-focal-x="0"
   data-taekwondo-focal-x="0"
+  data-header-bottom="0"
+  data-basketball-head-y="0"
+  data-taekwondo-head-y="0"
 >
 <iframe id="site" title="Mobile website test"></iframe>
 <script>
@@ -28,7 +31,7 @@
       const bounds = doc.querySelector(selector).getBoundingClientRect();
       return { left: bounds.left, right: bounds.right, width: bounds.width };
     };
-    const focalX = (selector, sourceRatio) => {
+    const focalPoint = (selector, sourceXRatio, sourceYRatio) => {
       const image = doc.querySelector(selector);
       const bounds = image.getBoundingClientRect();
       const scale = Math.max(
@@ -36,10 +39,28 @@
         bounds.height / image.naturalHeight
       );
       const renderedWidth = image.naturalWidth * scale;
-      const positionPercent = Number.parseFloat(getComputedStyle(image).objectPosition) / 100;
-      const renderedLeft = bounds.left + (bounds.width - renderedWidth) * positionPercent;
-      return renderedLeft + renderedWidth * sourceRatio;
+      const renderedHeight = image.naturalHeight * scale;
+      const [positionX, positionY] = getComputedStyle(image).objectPosition
+        .split(" ")
+        .map(Number.parseFloat);
+      const renderedLeft = bounds.left + (bounds.width - renderedWidth) * positionX / 100;
+      const renderedTop = bounds.top + (bounds.height - renderedHeight) * positionY / 100;
+      return {
+        x: renderedLeft + renderedWidth * sourceXRatio,
+        y: renderedTop + renderedHeight * sourceYRatio
+      };
     };
+
+    const basketball = focalPoint(
+      ".basketball-chapter .chapter-media",
+      0.735,
+      0.105
+    );
+    const taekwondo = focalPoint(
+      ".taekwondo-chapter .chapter-media",
+      0.24,
+      0.11
+    );
 
     document.body.dataset.ready = "true";
     document.body.dataset.viewportWidth = String(view.innerWidth);
@@ -47,11 +68,16 @@
     document.body.dataset.navRight = String(rect("nav").right);
     document.body.dataset.heroRight = String(rect("h1").right);
     document.body.dataset.actionsRight = String(rect(".actions").right);
-    document.body.dataset.basketballFocalX = String(
-      focalX(".basketball-chapter .chapter-media", 0.735)
+    document.body.dataset.basketballFocalX = String(basketball.x);
+    document.body.dataset.taekwondoFocalX = String(taekwondo.x);
+    document.body.dataset.headerBottom = String(
+      doc.querySelector(".bar").getBoundingClientRect().bottom
     );
-    document.body.dataset.taekwondoFocalX = String(
-      focalX(".taekwondo-chapter .chapter-media", 0.24)
+    document.body.dataset.basketballHeadY = String(
+      basketball.y - doc.querySelector(".basketball-chapter").getBoundingClientRect().top
+    );
+    document.body.dataset.taekwondoHeadY = String(
+      taekwondo.y - doc.querySelector(".taekwondo-chapter").getBoundingClientRect().top
     );
     if (scene) {
       doc.documentElement.style.scrollBehavior = "auto";

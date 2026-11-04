@@ -88,8 +88,9 @@ footer { display: flex; justify-content: space-between; gap: 1rem; padding-block
   nav { flex: 1; justify-content: flex-end; gap: .15rem .75rem; }
   nav a { min-height: 2.4rem; font-size: .82rem; }
   .chapter { min-height: 100svh; align-items: end; }
-  .basketball-chapter .chapter-media { object-position: 74% center; }
-  .taekwondo-chapter .chapter-media { object-position: 22% center; }
+  .chapter-media { inset: var(--header-height) 0 auto; height: calc(100% - var(--header-height)); }
+  .basketball-chapter .chapter-media { object-position: 80% top; }
+  .taekwondo-chapter .chapter-media { object-position: 20% top; }
   .basketball-chapter::before, .taekwondo-chapter::before { background: linear-gradient(0deg, #071011f7 0%, #071011d4 45%, #0710112e 80%); }
   .chapter-content, .chapter-content.is-right { display: block; text-align: left; padding-block: calc(var(--header-height) + 2rem) 5rem; }
   .chapter-content.is-right > * { width: auto; }
